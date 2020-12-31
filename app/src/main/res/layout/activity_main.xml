@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/pincode"
         android:hint="Input Pincode"
+        android:inputType="numberSigned"
+        android:maxLength="6"
         />
 
     <Button
