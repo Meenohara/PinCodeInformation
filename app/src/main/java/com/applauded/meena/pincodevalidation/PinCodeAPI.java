@@ -9,9 +9,6 @@ import retrofit2.http.Query;
 
 public interface PinCodeAPI {
 
-    @GET("pincode?code=560102")
-    Call<PinCode> getmyArea();
-
     @GET("pincode")
     Call<PinCode> getArea(@Query("code") String code);
 }

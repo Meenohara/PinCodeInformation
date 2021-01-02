@@ -2,12 +2,18 @@ package com.applauded.meena.pincodevalidation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.applauded.meena.pincodevalidation.util.Utility;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -19,6 +25,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.applauded.meena.pincodevalidation.util.Utility.isOnline;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,15 +41,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         Log.d("Logging", "onCreate: Logging");
 
         EditText input = findViewById(R.id.pincode);
         Button   goB   = findViewById(R.id.getdetails);
 
-        //TODO edittext numerical only, 6 digits input only
+        //TODO edittext numerical only, 6 digits input only:
+        //above done but minlength needs to be checked programmatically
 
         TextView mCity = findViewById(R.id.city);
         TextView mState = findViewById(R.id.state);
+
+        if(!isOnline(this))
+        {
+            Toast.makeText(this, "No internet!", Toast.LENGTH_LONG);
+            mCity.setText("No internet!");
+            mState.setText(null);
+        }
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://pintasticapi.in/")
@@ -74,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             mState.setText(pinCode.getMessage());
                         }
                     }
-                        //TODO output if pincode invalid
+                        //TODO output if pincode invalid: Implemented
                     @Override
                     public void onFailure(Call<PinCode> call, Throwable t) {
                         //TODO failure messages
@@ -87,21 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        pinCodeService.getmyArea().enqueue(new Callback<PinCode>() {
-            @Override
-            public void onResponse(Call<PinCode> call, Response<PinCode> response) {
-                PinCode pinCode = response.body();
-                Log.d("TAG", "City: "+pinCode.getCity());
-                Log.d("TAG", "State: "+pinCode.getState());
-                mCity.setText(pinCode.getCity());
-                mState.setText(pinCode.getState());
-            }
-
-            @Override
-            public void onFailure(Call<PinCode> call, Throwable t) {
-                Log.d("Logging", "onFailure: Logging");
-            }
-        });
     }
 
     private String resolveException(Throwable throwable) {
@@ -122,4 +125,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
