@@ -3,6 +3,7 @@ package com.applauded.meena.pincodevalidation;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.applauded.meena.pincodevalidation.util.Utility;
+import com.applauded.meena.pincodevalidation.util.ViewUtil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String qInput = input.getText().toString();
+                ViewUtil.hideKeyboard(input);
                 Log.d("TAG", " "+qInput);
                 Log.d("URL",pinCodeService.getArea(qInput).request().url().toString());
                 pinCodeService.getArea(qInput).enqueue(new Callback<PinCode>() {
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private String resolveException(Throwable throwable) {
@@ -127,3 +130,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+// TODO testing APIs using Postman?
+//TODO Unit testing: error cases?
