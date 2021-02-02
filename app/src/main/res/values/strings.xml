@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PinCodeValidation</string>
+    <string name="input_pincode">Input Pincode</string>
+    <string name="go">Go!</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
 </resources>

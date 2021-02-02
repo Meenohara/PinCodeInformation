@@ -77,6 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 ViewUtil.hideKeyboard(input);
                 Log.d("TAG", " "+qInput);
                 Log.d("URL",pinCodeService.getArea(qInput).request().url().toString());
+                /*call.execute() runs the request on the current thread.
+                call.execute() makes sense on a threadpool / executor / IntentService
+call.enqueue(callback) runs the request on a background thread, and runs the callback on the current thread.
+You generally don't want to run call.execute() on the main thread because it'll crash,
+but you also don't want to run call.enqueue() on a background thread.
+https://stackoverflow.com/questions/48151124/what-is-the-difference-between-retrofit-synchronous-and-asynchronous-request-wh
+*/
                 pinCodeService.getArea(qInput).enqueue(new Callback<PinCode>() {
                     @Override
                     public void onResponse(Call<PinCode> call, Response<PinCode> response) {

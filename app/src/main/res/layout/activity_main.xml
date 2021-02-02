@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/purple_200"
-    android:gravity="center_vertical|center_horizontal"
     android:padding="20dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/indiamap"
+        android:scaleType="fitCenter"
+        android:alpha="0.3"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pincode"
-        android:hint="Input Pincode"
+        android:hint="@string/input_pincode"
         android:inputType="numberSigned"
         android:maxLength="6"
         />
@@ -22,24 +31,29 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go!"
+        android:background="@color/purple_500"
+        android:text="@string/go"
         android:id="@+id/getdetails"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:text="City"
+        android:textSize="16sp"
+        android:text="@string/city"
         android:id="@+id/city"
         android:padding="10dp"
+        android:alpha="1"
          />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:text="State"
+        android:textSize="16sp"
+        android:text="@string/state"
         android:id="@+id/state"
         />
+    </LinearLayout>
+</FrameLayout>
 
-</LinearLayout>
+<!--TODO use 9 patch image for India map" -->
+<!--Apply alpha only for background image -->
